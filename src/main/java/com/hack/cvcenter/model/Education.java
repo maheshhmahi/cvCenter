@@ -18,6 +18,7 @@ public class Education {
 
     private String universityName;
     private String degree;
+    private String major;
     private LocalDate startDate;
     private LocalDate endDate;
     private String gpa;
