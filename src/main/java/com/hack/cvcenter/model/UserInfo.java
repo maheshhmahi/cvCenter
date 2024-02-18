@@ -23,6 +23,7 @@ public class UserInfo {
     private String country;
     private String zipCode;
     private Integer totalYearOfExp;
+    private String role;
 
     @JsonBackReference
     @OneToOne(mappedBy = "userInfo")
