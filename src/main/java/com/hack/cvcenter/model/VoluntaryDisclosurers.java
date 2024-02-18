@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "voluntary_disclosurers")
-public class VoluntaryDisclosurers {
+public class VoluntaryDisclosurers implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
