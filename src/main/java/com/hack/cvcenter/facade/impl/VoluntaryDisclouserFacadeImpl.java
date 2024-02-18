@@ -2,13 +2,14 @@ package com.hack.cvcenter.facade.impl;
 
 import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
-import com.hack.cvcenter.dto.UserInfoDto;
+import com.hack.cvcenter.dto.VolountaryDisclouserDto;
 import com.hack.cvcenter.exception.CustomException;
-import com.hack.cvcenter.facade.UserInfoFacade;
+import com.hack.cvcenter.facade.VoluntaryDisclouserFacade;
 import com.hack.cvcenter.model.UserDetail;
 import com.hack.cvcenter.model.UserInfo;
-import com.hack.cvcenter.service.UserInfoService;
+import com.hack.cvcenter.model.VoluntaryDisclosurers;
 import com.hack.cvcenter.service.UserService;
+import com.hack.cvcenter.service.VoluntaryDisclouserService;
 import com.hack.cvcenter.util.ApiUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -23,10 +24,10 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class UserInfoFacadeImpl implements UserInfoFacade {
+public class VoluntaryDisclouserFacadeImpl implements VoluntaryDisclouserFacade {
 
     @Autowired
-    UserInfoService userInfoService;
+    VoluntaryDisclouserService voluntaryDisclouserService;
 
     @Autowired
     UserService userService;
@@ -34,31 +35,30 @@ public class UserInfoFacadeImpl implements UserInfoFacade {
     private static final ModelMapper mapper = new ModelMapper();
 
     @Override
-    public ResponseEntity<?> createUserInfo(UserInfoDto userInfoDto) {
+    public ResponseEntity<?> createVoluntaryDisclouser(VolountaryDisclouserDto volountaryDisclouserDto) {
         try {
             log.info("Check if user detail is present");
-            UserDetail userDetail = userService.fetchCustomerByUuid(UUID.fromString(userInfoDto.getUserUuid()));
+            UserDetail userDetail = userService.fetchCustomerByUuid(UUID.fromString(volountaryDisclouserDto.getUserUuid()));
             if(userDetail == null) {
                 throw new CustomException(ErrorMessages.USER_NOT_FOUND_ERR_MSG);
             }
             log.info("Map to model");
-            UserInfo userInfo = mapper.map(userInfoDto, UserInfo.class);
-            userInfo.setUserDetail(userDetail);
-            userInfo.setUuid(ApiUtil.generateUuid());
-            log.info("Mapping to model");
-            userInfo = userInfoService.addOrUpdate(userInfo);
-            if(userInfo == null) {
-                throw new CustomException(ErrorMessages.USER_INFO_EXCEPTION);
+            VoluntaryDisclosurers voluntaryDisclosurers = mapper.map(volountaryDisclouserDto, VoluntaryDisclosurers.class);
+            voluntaryDisclosurers.setUserDetail(userDetail);
+            voluntaryDisclosurers.setUuid(ApiUtil.generateUuid());
+            voluntaryDisclosurers = voluntaryDisclouserService.addOrUpdate(voluntaryDisclosurers);
+            if(voluntaryDisclosurers == null) {
+                throw new CustomException(ErrorMessages.VOLUNTARY_DISCLOUSER_EXCEPTION);
             }
-            log.info("User info saved successfully");
+            log.info("Voluntary disclouser added successfully");
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.EMAIL, userDetail.getEmail());
             map.put(ApiConstants.UUID, userDetail.getUuid());
-            map.put(ApiConstants.USER_INFO_UUID, userInfo.getUuid());
-            return ApiUtil.mapResponse(ApiConstants.USER_INFO_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
-
+            map.put(ApiConstants.VOLUNTARY_DISCLOUSER_UUID, voluntaryDisclosurers.getUuid());
+            return ApiUtil.mapResponse(ApiConstants.VOLUNTARY_DISCLOUSER_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }
     }
+
 }

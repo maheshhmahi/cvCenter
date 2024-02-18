@@ -28,4 +28,7 @@ public interface ErrorMessages {
     static final String USER_NOT_PRESENT_ERR_MSG = "Customer not found/invalid customer id";
 
     static final String USER_INFO_EXCEPTION = "Exception while adding user information";
+    static final String VOLUNTARY_DISCLOUSER_EXCEPTION = "Exception while adding Voluntary disclouser information";
+
+    static final String YES_NO_ERR_MSG = "Value must be 'yes' or 'no'";
 }

@@ -1,7 +1,7 @@
 package com.hack.cvcenter.dto;
 
 import com.hack.cvcenter.constants.ErrorMessages;
-import com.hack.cvcenter.enums.AddressType;
+import com.hack.cvcenter.enums.AddressTypeEnum;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class UserInfoDto {
     private String phoneNumber;
 
     @NotNull(message = ErrorMessages.IS_REQUIRED)
-    private AddressType type;
+    private AddressTypeEnum type;
 
     @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     private String streetAddress;
