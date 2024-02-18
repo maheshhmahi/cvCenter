@@ -1,5 +1,6 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class VoluntaryDisclosurers {
     private String veteranStatus;
     private String disabled;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "voluntaryDisclosurers")
     private UserDetail userDetail;
 

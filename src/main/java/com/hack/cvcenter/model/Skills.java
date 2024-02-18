@@ -3,7 +3,7 @@ package com.hack.cvcenter.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,5 +19,5 @@ public class Skills {
     private String skill;
 
     @ManyToMany(mappedBy = "skills")
-    private List<UserDetail> usersDetails;
+    private Set<UserDetail> usersDetails;
 }

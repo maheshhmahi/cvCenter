@@ -1,15 +1,20 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "user_detail")
 public class UserDetail {
 
@@ -26,24 +31,28 @@ public class UserDetail {
 
     @JsonManagedReference
     @OneToMany
-    private List<UserExperience> userExperience;
+    private Set<UserExperience> userExperience;
 
     @JsonManagedReference
     @OneToMany
-    private List<Education> userEducation;
+    private Set<Education> userEducation;
 
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", referencedColumnName = "id")
     private UserInfo userInfo;
 
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "voluntary_disclosurers_id", referencedColumnName = "id")
     private VoluntaryDisclosurers voluntaryDisclosurers;
 
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "links_id", referencedColumnName = "id")
-    private Links links;
+    @JsonIgnoreProperties("userDetail")
+    private LinksDetail linksDetail;
 
     @ManyToMany
-    private List<Skills> skills;
+    private Set<Skills> skills;
 }

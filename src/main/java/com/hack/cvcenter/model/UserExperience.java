@@ -19,8 +19,10 @@ public class UserExperience {
     private UUID uuid;
     private String positionName;
     private String companyName;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String city;
+    private String country;
+    private String endDate;
     private String details;
 
     @JsonBackReference

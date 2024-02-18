@@ -2,12 +2,12 @@ package com.hack.cvcenter.facade.impl;
 
 import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
-import com.hack.cvcenter.dto.UserInfoDto;
+import com.hack.cvcenter.dto.LinksDto;
 import com.hack.cvcenter.exception.CustomException;
-import com.hack.cvcenter.facade.UserInfoFacade;
+import com.hack.cvcenter.facade.LinksFacade;
+import com.hack.cvcenter.model.LinksDetail;
 import com.hack.cvcenter.model.UserDetail;
-import com.hack.cvcenter.model.UserInfo;
-import com.hack.cvcenter.service.UserInfoService;
+import com.hack.cvcenter.service.LinksService;
 import com.hack.cvcenter.service.UserService;
 import com.hack.cvcenter.util.ApiUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +23,10 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class UserInfoFacadeImpl implements UserInfoFacade {
+public class LinksFacadeImpl implements LinksFacade {
 
     @Autowired
-    UserInfoService userInfoService;
+    LinksService linksService;
 
     @Autowired
     UserService userService;
@@ -34,32 +34,32 @@ public class UserInfoFacadeImpl implements UserInfoFacade {
     private static final ModelMapper mapper = new ModelMapper();
 
     @Override
-    public ResponseEntity<?> createUserInfo(UserInfoDto userInfoDto) {
+    public ResponseEntity<?> createLinks(LinksDto linksDto) {
         try {
             log.info("Check if user detail is present");
-            UserDetail userDetail = userService.fetchCustomerByUuid(UUID.fromString(userInfoDto.getUserUuid()));
+            UserDetail userDetail = userService.fetchCustomerByUuid(UUID.fromString(linksDto.getUserUuid()));
             if(userDetail == null) {
                 throw new CustomException(ErrorMessages.USER_NOT_FOUND_ERR_MSG);
             }
             log.info("Map to model");
-            UserInfo userInfo = mapper.map(userInfoDto, UserInfo.class);
-            userInfo.setUserDetail(userDetail);
-            userInfo.setUuid(ApiUtil.generateUuid());
-            log.info("Mapping to model");
-            userInfo = userInfoService.addOrUpdate(userInfo);
-            if(userInfo == null) {
-                throw new CustomException(ErrorMessages.USER_INFO_EXCEPTION);
+            LinksDetail linksDetail = mapper.map(linksDto, LinksDetail.class);
+            linksDetail.setUuid(ApiUtil.generateUuid());
+            linksDetail.setUserDetail(userDetail);
+            linksDetail = linksService.addOrUpdate(linksDetail);
+            if(linksDetail == null) {
+                throw new CustomException(ErrorMessages.LINKS_EXCEPTION);
             }
-            userDetail.setUserInfo(userInfo);
+            log.info("Links saved successfully");
+            userDetail.setLinksDetail(linksDetail);
             userService.addOrUpdateUser(userDetail);
-            log.info("User info saved successfully");
+
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
             map.put(ApiConstants.LASTNAME, userDetail.getLastName());
             map.put(ApiConstants.UUID, userDetail.getUuid());
-            map.put(ApiConstants.USER_INFO_UUID, userInfo.getUuid());
-            return ApiUtil.mapResponse(ApiConstants.USER_INFO_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
+            map.put(ApiConstants.LINKS_UUID, linksDetail.getUuid());
 
+            return ApiUtil.mapResponse(ApiConstants.LINKS_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }

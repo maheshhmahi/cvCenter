@@ -51,6 +51,8 @@ public class VoluntaryDisclouserFacadeImpl implements VoluntaryDisclouserFacade 
                 throw new CustomException(ErrorMessages.VOLUNTARY_DISCLOUSER_EXCEPTION);
             }
             log.info("Voluntary disclouser added successfully");
+            userDetail.setVoluntaryDisclosurers(voluntaryDisclosurers);
+            userService.addOrUpdateUser(userDetail);
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.EMAIL, userDetail.getEmail());
             map.put(ApiConstants.UUID, userDetail.getUuid());

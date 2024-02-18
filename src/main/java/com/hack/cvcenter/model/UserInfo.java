@@ -1,5 +1,7 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +24,7 @@ public class UserInfo {
     private String country;
     private String zipCode;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "userInfo")
     private UserDetail userDetail;
 
