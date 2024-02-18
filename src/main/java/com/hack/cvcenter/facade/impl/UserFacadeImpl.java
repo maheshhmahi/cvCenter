@@ -75,6 +75,7 @@ public class UserFacadeImpl implements UserFacade {
             responseMap.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
             responseMap.put(ApiConstants.LASTNAME, userDetail.getLastName());
             responseMap.put(ApiConstants.UUID, userDetail.getUuid());
+            responseMap.put(ApiConstants.IS_RECRUITER, userDetail.getIsRecruiter());
             return ApiUtil.mapResponse(ApiConstants.USERLOGINSUCCESS, responseMap, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());

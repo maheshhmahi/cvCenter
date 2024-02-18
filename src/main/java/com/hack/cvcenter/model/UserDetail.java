@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -29,11 +30,11 @@ public class UserDetail {
 
     @JsonManagedReference
     @OneToMany
-    private List<UserExperience> userExperience;
+    private Set<UserExperience> userExperience;
 
     @JsonManagedReference
     @OneToMany
-    private List<Education> userEducation;
+    private Set<Education> userEducation;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
