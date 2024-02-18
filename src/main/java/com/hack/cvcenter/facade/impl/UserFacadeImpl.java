@@ -2,10 +2,7 @@ package com.hack.cvcenter.facade.impl;
 
 import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
-import com.hack.cvcenter.dto.LoginDto;
-import com.hack.cvcenter.dto.UserDto;
-import com.hack.cvcenter.dto.UserSearchDto;
-import com.hack.cvcenter.dto.UserSkillsDto;
+import com.hack.cvcenter.dto.*;
 import com.hack.cvcenter.exception.CustomException;
 import com.hack.cvcenter.facade.UserFacade;
 import com.hack.cvcenter.model.UserDetail;
@@ -21,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -136,7 +130,12 @@ public class UserFacadeImpl implements UserFacade {
                 userDetailSpecification = userDetailSpecification.and(UserDetailSpecification.withSkills(userSearchDto.getSkills()));
             }
             List<UserDetail> userDetailList = userService.fetchFilteredUsers(userDetailSpecification);
-            return ApiUtil.mapResponse(ApiConstants.USERDETAILS, userDetailList, HttpStatus.OK);
+            List<UserFilterResponseDto> filterResponseDtosList = new ArrayList<>();
+            userDetailList.stream().forEach(userDetail -> {
+                UserFilterResponseDto userFilterResponseDto = mapper.map(userDetail, UserFilterResponseDto.class);
+                filterResponseDtosList.add(userFilterResponseDto);
+            });
+            return ApiUtil.mapResponse(ApiConstants.USERDETAILS, filterResponseDtosList, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }

@@ -5,7 +5,9 @@ import com.hack.cvcenter.exception.CustomException;
 import com.hack.cvcenter.model.UserDetail;
 import com.hack.cvcenter.repository.UserDetailRepository;
 import com.hack.cvcenter.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -36,9 +39,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Cacheable(value = "userDetailByUuidCache", key = "#uuid")
     @Override
     public UserDetail fetchCustomerByUuid(UUID uuid) {
         try {
+            log.info("fetching from db");
             return userDetailRepository.findUserDetailByUuid(uuid);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
