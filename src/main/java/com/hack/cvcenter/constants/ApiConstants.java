@@ -16,4 +16,8 @@ public interface ApiConstants {
 
     static final String UUID = "uuid";
 
+    static final String USER_INFO_UUID = "userInfoUuid";
+
+    static final String USER_INFO_ADDED_SUCCESS_MSG = "User information added successfully";
+
 }

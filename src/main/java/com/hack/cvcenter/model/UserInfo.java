@@ -14,7 +14,7 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private UUID uuid;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String type;
     private String streetAddress;
     private String city;
