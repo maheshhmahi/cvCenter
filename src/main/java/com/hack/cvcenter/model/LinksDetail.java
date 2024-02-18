@@ -1,5 +1,7 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,7 +10,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "links")
-public class Links {
+public class LinksDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +21,7 @@ public class Links {
     private String linkedInUrl;
     private String githubUrl;
 
-    @OneToOne(mappedBy = "links")
+    @OneToOne(mappedBy = "linksDetail")
+    @JsonIgnoreProperties("links")
     private UserDetail userDetail;
 }

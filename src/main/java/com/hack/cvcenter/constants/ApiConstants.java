@@ -17,10 +17,12 @@ public interface ApiConstants {
     static final String UUID = "uuid";
 
     static final String USER_INFO_UUID = "userInfoUuid";
+    static final String LINKS_UUID = "linksUuid";
     static final String VOLUNTARY_DISCLOUSER_UUID = "voluntaryDisclouserUuid";
 
     static final String USER_INFO_ADDED_SUCCESS_MSG = "User information added successfully";
 
     static final String VOLUNTARY_DISCLOUSER_ADDED_SUCCESS_MSG = "Voluntary Disclouser added successfully";
+    static final String LINKS_ADDED_SUCCESS_MSG = "Links added successfully";
 
 }

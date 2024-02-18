@@ -1,5 +1,6 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
