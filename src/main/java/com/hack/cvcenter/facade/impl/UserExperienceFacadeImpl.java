@@ -44,23 +44,25 @@ public class UserExperienceFacadeImpl implements UserExperienceFacade {
                 throw new CustomException(ErrorMessages.USER_NOT_FOUND_ERR_MSG);
             }
             log.info("Map to model");
-            UserExperience userExperience = mapper.map(userExperienceDto, UserExperience.class);
-            userExperience.setUuid(ApiUtil.generateUuid());
-            userExperience.setUserDetail(userDetail);
-            userExperience = userExperienceService.addOrUpdate(userExperience);
-            if(userExperience == null) {
-                throw new CustomException(ErrorMessages.USER_EXPERIENCE_EXCEPTION);
-            }
-            if(userDetail.getUserExperience() == null) {
-                userDetail.setUserExperience(new HashSet<>());
-            }
-            userDetail.getUserExperience().add(userExperience);
-            userService.addOrUpdateUser(userDetail);
+            userExperienceDto.getExperienceDetails().stream().forEach(experienceDto -> {
+                UserExperience userExperience = mapper.map(experienceDto, UserExperience.class);
+                userExperience.setUuid(ApiUtil.generateUuid());
+                userExperience.setUserDetail(userDetail);
+                userExperience = userExperienceService.addOrUpdate(userExperience);
+                if(userExperience == null) {
+                    throw new CustomException(ErrorMessages.USER_EXPERIENCE_EXCEPTION);
+                }
+                if(userDetail.getUserExperience() == null) {
+                    userDetail.setUserExperience(new HashSet<>());
+                }
+                userDetail.getUserExperience().add(userExperience);
+                userService.addOrUpdateUser(userDetail);
+            });
+
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
             map.put(ApiConstants.LASTNAME, userDetail.getLastName());
             map.put(ApiConstants.UUID, userDetail.getUuid());
-            map.put(ApiConstants.USER_EXPERIENCE_UUID, userExperience.getUuid());
             return ApiUtil.mapResponse(ApiConstants.USER_EXP_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());

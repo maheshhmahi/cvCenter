@@ -1,7 +1,6 @@
 package com.hack.cvcenter.controller;
 
 import com.hack.cvcenter.dto.UserExperienceDto;
-import com.hack.cvcenter.dto.UserInfoDto;
 import com.hack.cvcenter.facade.UserExperienceFacade;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
