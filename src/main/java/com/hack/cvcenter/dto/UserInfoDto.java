@@ -2,6 +2,7 @@ package com.hack.cvcenter.dto;
 
 import com.hack.cvcenter.constants.ErrorMessages;
 import com.hack.cvcenter.enums.AddressTypeEnum;
+import com.hack.cvcenter.enums.RoleEnum;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -32,5 +33,8 @@ public class UserInfoDto {
 
     @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     private String zipCode;
+
+    @NotNull(message = ErrorMessages.IS_REQUIRED)
+    private RoleEnum role;
 
 }

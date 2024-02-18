@@ -32,4 +32,5 @@ public class ExperienceDto {
     @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     private String details;
 
+    private Integer yearOfExp;
 }

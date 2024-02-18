@@ -7,4 +7,6 @@ import org.springframework.stereotype.Component;
 public interface UserInfoService {
 
     UserInfo addOrUpdate(UserInfo userInfo);
+
+    UserInfo fetchUserInfoByUserDetail(UserDetail userDetail);
 }

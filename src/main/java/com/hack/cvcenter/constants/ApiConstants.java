@@ -37,6 +37,8 @@ public interface ApiConstants {
     static final String EDUCATION_ADDED_SUCCESS_MSG = "Education added successfully";
     static final String USER_EXP_ADDED_SUCCESS_MSG = "User Experience added successfully";
     static final String USER_DETAILS_FETCHED_SUCCESS_MSG = "User details fetched successfully";
+    static final String SKILLS_ADDED_SUCCESS_MSG = "Skills Added successfully";
+    static final String SKILLS_FETCH_SUCCESS_MSG = "Skills Fetched successfully";
 
     static final String DOB = "dob";
 }

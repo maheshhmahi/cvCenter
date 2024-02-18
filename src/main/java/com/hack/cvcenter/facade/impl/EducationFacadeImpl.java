@@ -58,18 +58,6 @@ public class EducationFacadeImpl implements EducationFacade {
                 userDetail.getUserEducation().add(education);
                 userService.addOrUpdateUser(userDetail);
             });
-//            Education education = mapper.map(userEducationDto, Education.class);
-//            education.setUuid(ApiUtil.generateUuid());
-//            education.setUserDetail(userDetail);
-//            education = educationService.addOrUpdate(education);
-//            if(education == null) {
-//                throw new CustomException(ErrorMessages.EDUCATION_EXCEPTION);
-//            }
-//            if(userDetail.getUserEducation() == null) {
-//                userDetail.setUserEducation(new HashSet<>());
-//            }
-//            userDetail.getUserEducation().add(education);
-//            userService.addOrUpdateUser(userDetail);
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
             map.put(ApiConstants.LASTNAME, userDetail.getLastName());
