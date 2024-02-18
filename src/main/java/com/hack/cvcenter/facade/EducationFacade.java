@@ -1,10 +1,10 @@
 package com.hack.cvcenter.facade;
 
-import com.hack.cvcenter.dto.EducationDto;
+import com.hack.cvcenter.dto.UserEducationDto;
 import org.springframework.http.ResponseEntity;
 
 public interface EducationFacade {
 
-    ResponseEntity<?> createEducation(EducationDto educationDto);
+    ResponseEntity<?> createEducation(UserEducationDto userEducationDto);
 
 }

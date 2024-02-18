@@ -54,5 +54,5 @@ public class UserDetail {
     private LinksDetail linksDetail;
 
     @ManyToMany
-    private List<Skills> skills;
+    private Set<Skills> skills;
 }
