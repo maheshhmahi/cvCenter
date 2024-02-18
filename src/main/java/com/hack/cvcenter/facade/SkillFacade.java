@@ -6,4 +6,6 @@ import org.springframework.http.ResponseEntity;
 public interface SkillFacade {
 
     ResponseEntity<?> addUserSkill(UserSkillsDto userSkillsDto);
+
+    ResponseEntity<?> fetchAllSkills();
 }

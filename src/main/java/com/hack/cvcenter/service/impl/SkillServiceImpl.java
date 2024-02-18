@@ -11,6 +11,9 @@ import com.hack.cvcenter.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Set;
+
 @Component
 public class SkillServiceImpl implements SkillService {
 
@@ -30,6 +33,15 @@ public class SkillServiceImpl implements SkillService {
     public Skills fetchSkill(String skill) {
         try {
             return skillRepository.findBySkill(skill);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Skills> fetchAllSkill() {
+        try {
+            return skillRepository.findAll();
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
         }

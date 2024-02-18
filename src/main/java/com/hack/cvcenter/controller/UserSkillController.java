@@ -8,16 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user-skill")
+@RequestMapping("/user/skill")
 @CrossOrigin("*")
 public class UserSkillController {
 
     @Autowired
     SkillFacade skillFacade;
 
-    @PostMapping("/skill/add")
+    @PostMapping("/add")
     public ResponseEntity<?> addSkills(@Valid @RequestBody UserSkillsDto userSkillsDto) {
         return skillFacade.addUserSkill(userSkillsDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> fetchSkills() {
+        return skillFacade.fetchAllSkills();
     }
 
 }
