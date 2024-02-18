@@ -6,8 +6,10 @@ import com.hack.cvcenter.model.UserDetail;
 import com.hack.cvcenter.repository.UserDetailRepository;
 import com.hack.cvcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -38,6 +40,15 @@ public class UserServiceImpl implements UserService {
     public UserDetail fetchCustomerByUuid(UUID uuid) {
         try {
             return userDetailRepository.findUserDetailByUuid(uuid);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<UserDetail> fetchFilteredUsers(Specification<UserDetail> userDetailSpecification) {
+        try {
+            return userDetailRepository.findAll(userDetailSpecification);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
         }

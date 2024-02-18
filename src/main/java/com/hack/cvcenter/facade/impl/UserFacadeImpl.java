@@ -4,21 +4,25 @@ import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
 import com.hack.cvcenter.dto.LoginDto;
 import com.hack.cvcenter.dto.UserDto;
+import com.hack.cvcenter.dto.UserSearchDto;
 import com.hack.cvcenter.dto.UserSkillsDto;
 import com.hack.cvcenter.exception.CustomException;
 import com.hack.cvcenter.facade.UserFacade;
 import com.hack.cvcenter.model.UserDetail;
 import com.hack.cvcenter.service.UserService;
+import com.hack.cvcenter.specification.UserDetailSpecification;
 import com.hack.cvcenter.util.ApiUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -107,6 +111,32 @@ public class UserFacadeImpl implements UserFacade {
             responseMap.put(ApiConstants.LINKS_DETAIL, userDetail.getLinksDetail());
             responseMap.put(ApiConstants.SKILLS, userDetail.getSkills());
             return ApiUtil.mapResponse(ApiConstants.USER_DETAILS_FETCHED_SUCCESS_MSG, responseMap, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> fetchFilteredUsers(UserSearchDto userSearchDto) {
+        try {
+            Specification<UserDetail> userDetailSpecification = Specification.where(null);
+            if (userSearchDto.getRole() != null) {
+                userDetailSpecification = userDetailSpecification.and(UserDetailSpecification.withRole(userSearchDto.getRole().toString()));
+            }
+
+            if (userSearchDto.getYearOfExp() != null) {
+                userDetailSpecification = userDetailSpecification.and(UserDetailSpecification.withYearOfExp(userSearchDto.getYearOfExp()));
+            }
+
+            if (userSearchDto.getState() != null) {
+                userDetailSpecification = userDetailSpecification.and(UserDetailSpecification.withState(userSearchDto.getState()));
+            }
+
+            if (userSearchDto.getSkills() != null && !userSearchDto.getSkills().isEmpty()) {
+                userDetailSpecification = userDetailSpecification.and(UserDetailSpecification.withSkills(userSearchDto.getSkills()));
+            }
+            List<UserDetail> userDetailList = userService.fetchFilteredUsers(userDetailSpecification);
+            return ApiUtil.mapResponse(ApiConstants.USERDETAILS, userDetailList, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }
