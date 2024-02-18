@@ -4,6 +4,10 @@
 
 https://github.com/Harshitha-g-06/BugSWE-frontend
 
+## Please find the github url for back end application
+
+https://github.com/maheshhmahi/cvCenter
+
 ## Use Case
 
 Title - Bridging the Gap: The Impact of Inefficient Job Searches on Individuals and Recruiters
@@ -69,3 +73,6 @@ Run ng e2e to execute the end-to-end tests via a platform of your choice. To use
 ## Further help
 
 To get more help on the Angular CLI use ng help or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## The backend is built using Spring boot and java, PostgreSql is used for database and redis cloud for caching
