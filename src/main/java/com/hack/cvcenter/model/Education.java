@@ -1,5 +1,6 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,8 +20,12 @@ public class Education {
     private String universityName;
     private String degree;
     private String major;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private String gpa;
+
+    @JsonBackReference
+    @ManyToOne
+    UserDetail userDetail;
 
 }
