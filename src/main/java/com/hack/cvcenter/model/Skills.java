@@ -1,5 +1,7 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,6 +20,7 @@ public class Skills {
 
     private String skill;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "skills")
     private Set<UserDetail> usersDetails;
 }

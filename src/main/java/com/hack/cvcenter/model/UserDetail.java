@@ -54,5 +54,6 @@ public class UserDetail {
     private LinksDetail linksDetail;
 
     @ManyToMany
+    @JsonManagedReference
     private Set<Skills> skills;
 }
