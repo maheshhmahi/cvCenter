@@ -52,7 +52,8 @@ public class UserInfoFacadeImpl implements UserInfoFacade {
             }
             log.info("User info saved successfully");
             Map<String, Object> map = new HashMap<>();
-            map.put(ApiConstants.EMAIL, userDetail.getEmail());
+            map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
+            map.put(ApiConstants.LASTNAME, userDetail.getLastName());
             map.put(ApiConstants.UUID, userDetail.getUuid());
             map.put(ApiConstants.USER_INFO_UUID, userInfo.getUuid());
             return ApiUtil.mapResponse(ApiConstants.USER_INFO_ADDED_SUCCESS_MSG, map, HttpStatus.OK);

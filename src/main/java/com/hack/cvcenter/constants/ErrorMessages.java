@@ -8,7 +8,7 @@ public interface ErrorMessages {
 
     static final String PASSWORD_REGEX_ERR_MSG = "Password must contain minimum eight characters, at least one letter, one number and one special character";
 
-    static final String DOB_ERR_MSG = "Date of birth should be DD/mm/yyy";
+    static final String DOB_ERR_MSG = "Date of birth should be yyyy-mm-dd";
     static final String USER_EXISTS_ERR_MSG = "USER already exists";
 
     static final String DB_CONNECTION_EXCEPTION = "Exception with connecting to database";
