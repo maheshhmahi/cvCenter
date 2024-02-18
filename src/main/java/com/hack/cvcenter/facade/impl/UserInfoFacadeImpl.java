@@ -50,6 +50,8 @@ public class UserInfoFacadeImpl implements UserInfoFacade {
             if(userInfo == null) {
                 throw new CustomException(ErrorMessages.USER_INFO_EXCEPTION);
             }
+            userDetail.setUserInfo(userInfo);
+            userService.addOrUpdateUser(userDetail);
             log.info("User info saved successfully");
             Map<String, Object> map = new HashMap<>();
             map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
