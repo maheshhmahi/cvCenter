@@ -1,5 +1,6 @@
 package com.hack.cvcenter.controller;
 
+import com.hack.cvcenter.dto.LoginDto;
 import com.hack.cvcenter.dto.UserDto;
 import com.hack.cvcenter.facade.UserFacade;
 import jakarta.validation.Valid;
@@ -15,8 +16,12 @@ public class UserController {
     UserFacade userFacade;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> hello(@Valid @RequestBody UserDto userDto) {
-        return userFacade.createCustomer(userDto);
+    public ResponseEntity<?> userSignUp(@Valid @RequestBody UserDto userDto) {
+        return userFacade.createUser(userDto);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> userLogin(@Valid @RequestBody LoginDto loginDto) {
+        return userFacade.userLogin(loginDto);
+    }
 }

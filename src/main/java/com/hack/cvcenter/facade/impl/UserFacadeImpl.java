@@ -2,6 +2,7 @@ package com.hack.cvcenter.facade.impl;
 
 import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
+import com.hack.cvcenter.dto.LoginDto;
 import com.hack.cvcenter.dto.UserDto;
 import com.hack.cvcenter.exception.CustomException;
 import com.hack.cvcenter.facade.UserFacade;
@@ -28,7 +29,7 @@ public class UserFacadeImpl implements UserFacade {
 
     private static final ModelMapper mapper = new ModelMapper();
     @Override
-    public ResponseEntity<?> createCustomer(UserDto userDto) throws DuplicateKeyException {
+    public ResponseEntity<?> createUser(UserDto userDto) throws DuplicateKeyException {
         try {
             log.info("Check if duplicate user present");
             if(userService.fetchCustomerByEmail(userDto.getEmail()) != null) {
@@ -50,6 +51,29 @@ public class UserFacadeImpl implements UserFacade {
 
             return ApiUtil.mapResponse(ApiConstants.USERCREATESUCCESS, map, HttpStatus.OK);
 
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> userLogin(LoginDto loginDto) {
+        try {
+            log.info("check if user is present");
+            UserDetail userDetail = userService.fetchCustomerByEmail(loginDto.getEmail());
+            Map<String, Object> responseMap = new HashMap<>();
+            if(userDetail == null) {
+                responseMap.put(ApiConstants.ERR_FIELD, ApiConstants.USER_NOT_PRESENT);
+                return ApiUtil.mapResponse(ApiConstants.USER_NOT_PRESENT, responseMap, HttpStatus.OK);
+            }
+            log.info("validate password");
+            if(!validatePassword(userDetail.getPassword(), loginDto.getPassword())) {
+                responseMap.put(ApiConstants.ERR_FIELD, ApiConstants.INVALID_PASSWORD);
+                return ApiUtil.mapResponse(ApiConstants.ERR_FIELD, responseMap, HttpStatus.OK);
+            }
+            responseMap.put(ApiConstants.EMAIL, userDetail.getEmail());
+            responseMap.put(ApiConstants.UUID, userDetail.getUuid());
+            return ApiUtil.mapResponse(ApiConstants.USERLOGINSUCCESS, responseMap, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }
