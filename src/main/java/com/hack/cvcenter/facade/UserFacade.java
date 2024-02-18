@@ -10,4 +10,6 @@ public interface UserFacade {
     ResponseEntity<?> createUser(UserDto userDto) throws DuplicateKeyException;
 
     ResponseEntity<?> userLogin(LoginDto loginDto);
+
+    ResponseEntity<?> fetchAllUserDetails(String userUuid);
 }

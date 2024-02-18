@@ -6,13 +6,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class EducationDto {
-
-    @NotEmpty(message = ErrorMessages.IS_REQUIRED)
-    private String userUuid;
 
     @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     private String universityName;

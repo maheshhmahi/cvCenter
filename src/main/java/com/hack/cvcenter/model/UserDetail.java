@@ -1,5 +1,6 @@
 package com.hack.cvcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -36,21 +37,22 @@ public class UserDetail {
     @OneToMany
     private Set<Education> userEducation;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", referencedColumnName = "id")
     private UserInfo userInfo;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "voluntary_disclosurers_id", referencedColumnName = "id")
     private VoluntaryDisclosurers voluntaryDisclosurers;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "links_id", referencedColumnName = "id")
     @JsonIgnoreProperties("userDetail")
     private LinksDetail linksDetail;
 
     @ManyToMany
-    private List<Skills> skills;
+    private Set<Skills> skills;
 }

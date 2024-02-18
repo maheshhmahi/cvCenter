@@ -1,7 +1,6 @@
 package com.hack.cvcenter.controller;
 
-import com.hack.cvcenter.dto.EducationDto;
-import com.hack.cvcenter.dto.LinksDto;
+import com.hack.cvcenter.dto.UserEducationDto;
 import com.hack.cvcenter.facade.EducationFacade;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ public class EducationController {
     EducationFacade educationFacade;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createEducation(@Valid @RequestBody EducationDto educationDto) {
-        return educationFacade.createEducation(educationDto);
+    public ResponseEntity<?> createEducation(@Valid @RequestBody UserEducationDto userEducationDto) {
+        return educationFacade.createEducation(userEducationDto);
     }
 
 }
