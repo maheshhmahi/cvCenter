@@ -51,7 +51,7 @@ public class UserExperienceFacadeImpl implements UserExperienceFacade {
             log.info("Map to model");
             AtomicReference<Integer> yearOfExp = new AtomicReference<>(0);
             userExperienceDto.getExperienceDetails().stream().forEach(experienceDto -> {
-                yearOfExp.updateAndGet(v -> v + experienceDto.getYearOfExp());
+                yearOfExp.updateAndGet(v -> v + ApiUtil.findDateDifference(experienceDto.getStartDate(), experienceDto.getEndDate()));
                 UserExperience userExperience = mapper.map(experienceDto, UserExperience.class);
                 userExperience.setUuid(ApiUtil.generateUuid());
                 userExperience.setUserDetail(userDetail);
