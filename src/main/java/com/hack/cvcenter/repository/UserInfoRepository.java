@@ -1,15 +1,11 @@
 package com.hack.cvcenter.repository;
 
 import com.hack.cvcenter.model.UserDetail;
+import com.hack.cvcenter.model.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
+public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
-    UserDetail findUserDetailByEmail(String email);
-
-    UserDetail findUserDetailByUuid(UUID uuid);
 }

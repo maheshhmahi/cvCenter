@@ -46,7 +46,8 @@ public class UserFacadeImpl implements UserFacade {
 
             log.info("Created user");
             Map<String, String> map = new HashMap<>();
-            map.put(ApiConstants.EMAIL, userDetail.getEmail());
+            map.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
+            map.put(ApiConstants.LASTNAME, userDetail.getLastName());
             map.put(ApiConstants.UUID, String.valueOf(userDetail.getUuid()));
 
             return ApiUtil.mapResponse(ApiConstants.USERCREATESUCCESS, map, HttpStatus.OK);
@@ -71,7 +72,8 @@ public class UserFacadeImpl implements UserFacade {
                 responseMap.put(ApiConstants.ERR_FIELD, ApiConstants.INVALID_PASSWORD);
                 return ApiUtil.mapResponse(ApiConstants.ERR_FIELD, responseMap, HttpStatus.OK);
             }
-            responseMap.put(ApiConstants.EMAIL, userDetail.getEmail());
+            responseMap.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
+            responseMap.put(ApiConstants.LASTNAME, userDetail.getLastName());
             responseMap.put(ApiConstants.UUID, userDetail.getUuid());
             return ApiUtil.mapResponse(ApiConstants.USERLOGINSUCCESS, responseMap, HttpStatus.OK);
         } catch (Exception e) {
