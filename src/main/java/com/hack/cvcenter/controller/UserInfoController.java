@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user-info")
+@CrossOrigin("*")
 public class UserInfoController {
 
     @Autowired
