@@ -32,6 +32,7 @@ public interface ErrorMessages {
     static final String LINKS_EXCEPTION = "Exception while adding links";
 
     static final String EDUCATION_EXCEPTION = "Exception while adding education";
+    static final String USER_EXPERIENCE_EXCEPTION = "Exception while adding user experience";
     static final String VOLUNTARY_DISCLOUSER_EXCEPTION = "Exception while adding Voluntary disclouser information";
 
     static final String YES_NO_ERR_MSG = "Value must be 'yes' or 'no'";
