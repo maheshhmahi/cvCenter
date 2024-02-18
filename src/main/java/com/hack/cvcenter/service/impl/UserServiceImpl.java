@@ -8,6 +8,8 @@ import com.hack.cvcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UserServiceImpl implements UserService {
 
@@ -27,6 +29,15 @@ public class UserServiceImpl implements UserService {
     public UserDetail fetchCustomerByEmail(String email) {
         try {
             return userDetailRepository.findUserDetailByEmail(email);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
+        }
+    }
+
+    @Override
+    public UserDetail fetchCustomerByUuid(UUID uuid) {
+        try {
+            return userDetailRepository.findUserDetailByUuid(uuid);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
         }
