@@ -17,10 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -67,6 +64,23 @@ public class SkillFacadeImpl implements SkillFacade {
             map.put(ApiConstants.LASTNAME, userDetail.getLastName());
             map.put(ApiConstants.UUID, userDetail.getUuid());
             return ApiUtil.mapResponse(ApiConstants.SKILLS_ADDED_SUCCESS_MSG, map, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> fetchAllSkills() {
+        try {
+            log.info("Feching all skills");
+            List<Skills> skills = skillService.fetchAllSkill();
+            Set<String> skillSet = new HashSet<>();
+            skills.stream().forEach(skill ->{
+                skillSet.add(skill.getSkill());
+            });
+            Map<String, Object> map = new HashMap<>();
+            map.put(ApiConstants.SKILLS, skillSet);
+            return ApiUtil.mapResponse(ApiConstants.SKILLS_FETCH_SUCCESS_MSG, map, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }
