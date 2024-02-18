@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Table(name = "user_detail")
-public class UserDetail {
+public class UserDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +31,11 @@ public class UserDetail {
     private Boolean isRecruiter;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<UserExperience> userExperience;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Education> userEducation;
 
     @JsonManagedReference
@@ -53,7 +54,12 @@ public class UserDetail {
     @JsonIgnoreProperties("userDetail")
     private LinksDetail linksDetail;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Skills> skills;
+
+    @Override
+    public String toString() {
+        return "Hello";
+    }
 }

@@ -6,12 +6,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "links")
-public class LinksDetail {
+public class LinksDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,13 +8,16 @@ import com.hack.cvcenter.repository.LinksRepository;
 import com.hack.cvcenter.repository.SkillRepository;
 import com.hack.cvcenter.service.LinksService;
 import com.hack.cvcenter.service.SkillService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class SkillServiceImpl implements SkillService {
 
     @Autowired
@@ -38,9 +41,11 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    @Cacheable(value = "skills")
     @Override
     public List<Skills> fetchAllSkill() {
         try {
+            log.info("Fetching from db");
             return skillRepository.findAll();
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.DB_CONNECTION_EXCEPTION + e.getMessage());
