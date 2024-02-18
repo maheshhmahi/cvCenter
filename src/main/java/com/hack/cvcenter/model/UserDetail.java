@@ -37,17 +37,17 @@ public class UserDetail {
     @OneToMany
     private Set<Education> userEducation;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", referencedColumnName = "id")
     private UserInfo userInfo;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "voluntary_disclosurers_id", referencedColumnName = "id")
     private VoluntaryDisclosurers voluntaryDisclosurers;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "links_id", referencedColumnName = "id")
     @JsonIgnoreProperties("userDetail")

@@ -28,6 +28,8 @@ public class UserDto {
     @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     @Pattern(regexp = ValidationRegex.DATE_REGEX, message = ErrorMessages.DOB_ERR_MSG)
     private String dob;
+
+    @NotEmpty(message = ErrorMessages.IS_REQUIRED)
     private Boolean isRecruiter;
 
 }

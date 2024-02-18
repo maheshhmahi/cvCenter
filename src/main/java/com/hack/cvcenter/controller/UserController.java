@@ -2,6 +2,7 @@ package com.hack.cvcenter.controller;
 
 import com.hack.cvcenter.dto.LoginDto;
 import com.hack.cvcenter.dto.UserDto;
+import com.hack.cvcenter.dto.UserSearchDto;
 import com.hack.cvcenter.facade.UserFacade;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> fetchUserDetails(@RequestParam(required = true, name = "userUuid") String userUuid) {
         return userFacade.fetchAllUserDetails(userUuid);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<?> filterUser(@ModelAttribute UserSearchDto userSearchDto) {
+        return userFacade.fetchFilteredUsers(userSearchDto);
     }
 
 }
