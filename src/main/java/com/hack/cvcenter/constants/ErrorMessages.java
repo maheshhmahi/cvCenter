@@ -36,4 +36,6 @@ public interface ErrorMessages {
     static final String VOLUNTARY_DISCLOUSER_EXCEPTION = "Exception while adding Voluntary disclouser information";
 
     static final String YES_NO_ERR_MSG = "Value must be 'yes' or 'no'";
+
+    static final String SKILL_NOT_PRESENT_EXCPETION = "Skill not present";
 }

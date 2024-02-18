@@ -4,6 +4,7 @@ import com.hack.cvcenter.constants.ApiConstants;
 import com.hack.cvcenter.constants.ErrorMessages;
 import com.hack.cvcenter.dto.LoginDto;
 import com.hack.cvcenter.dto.UserDto;
+import com.hack.cvcenter.dto.UserSkillsDto;
 import com.hack.cvcenter.exception.CustomException;
 import com.hack.cvcenter.facade.UserFacade;
 import com.hack.cvcenter.model.UserDetail;
