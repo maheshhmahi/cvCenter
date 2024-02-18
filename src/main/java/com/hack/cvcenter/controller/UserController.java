@@ -25,4 +25,10 @@ public class UserController {
     public ResponseEntity<?> userLogin(@Valid @RequestBody LoginDto loginDto) {
         return userFacade.userLogin(loginDto);
     }
+
+    @GetMapping
+    public ResponseEntity<?> fetchUserDetails(@RequestParam(required = true, name = "userUuid") String userUuid) {
+        return userFacade.fetchAllUserDetails(userUuid);
+    }
+
 }

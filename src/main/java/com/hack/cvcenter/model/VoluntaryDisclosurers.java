@@ -21,6 +21,7 @@ public class VoluntaryDisclosurers {
     private String veteranStatus;
     private String disabled;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "voluntaryDisclosurers")
     private UserDetail userDetail;
 

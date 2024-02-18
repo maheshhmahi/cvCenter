@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -77,6 +78,34 @@ public class UserFacadeImpl implements UserFacade {
             responseMap.put(ApiConstants.UUID, userDetail.getUuid());
             responseMap.put(ApiConstants.IS_RECRUITER, userDetail.getIsRecruiter());
             return ApiUtil.mapResponse(ApiConstants.USERLOGINSUCCESS, responseMap, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> fetchAllUserDetails(String userUuid) {
+        try {
+            log.info("check if user is present");
+            UserDetail userDetail = userService.fetchCustomerByUuid(UUID.fromString(userUuid));
+            Map<String, Object> responseMap = new HashMap<>();
+            if(userDetail == null) {
+                responseMap.put(ApiConstants.ERR_FIELD, ApiConstants.USER_NOT_PRESENT);
+                return ApiUtil.mapResponse(ApiConstants.USER_NOT_PRESENT, responseMap, HttpStatus.OK);
+            }
+            responseMap.put(ApiConstants.UUID, userDetail.getUuid());
+            responseMap.put(ApiConstants.EMAIL, userDetail.getEmail());
+            responseMap.put(ApiConstants.FIRSTNAME, userDetail.getFirstName());
+            responseMap.put(ApiConstants.LASTNAME, userDetail.getLastName());
+            responseMap.put(ApiConstants.DOB, userDetail.getDob());
+            responseMap.put(ApiConstants.IS_RECRUITER, userDetail.getIsRecruiter());
+            responseMap.put(ApiConstants.USER_EXPERIENCE, userDetail.getUserExperience());
+            responseMap.put(ApiConstants.USER_EDUCATION, userDetail.getUserEducation());
+            responseMap.put(ApiConstants.USER_INFO, userDetail.getUserInfo());
+            responseMap.put(ApiConstants.VOLUNTARY_DISCLOSURES, userDetail.getVoluntaryDisclosurers());
+            responseMap.put(ApiConstants.LINKS_DETAIL, userDetail.getLinksDetail());
+            responseMap.put(ApiConstants.SKILLS, userDetail.getSkills());
+            return ApiUtil.mapResponse(ApiConstants.USER_DETAILS_FETCHED_SUCCESS_MSG, responseMap, HttpStatus.OK);
         } catch (Exception e) {
             throw new CustomException(ErrorMessages.GENERAL_EXCEPTION_MSG + e.getMessage());
         }
