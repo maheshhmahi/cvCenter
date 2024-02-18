@@ -4,6 +4,7 @@ import com.hack.cvcenter.constants.ErrorMessages;
 import com.hack.cvcenter.constants.ValidationRegex;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
@@ -29,7 +30,7 @@ public class UserDto {
     @Pattern(regexp = ValidationRegex.DATE_REGEX, message = ErrorMessages.DOB_ERR_MSG)
     private String dob;
 
-    @NotEmpty(message = ErrorMessages.IS_REQUIRED)
+    @NotNull(message = ErrorMessages.IS_REQUIRED)
     private Boolean isRecruiter;
 
 }
